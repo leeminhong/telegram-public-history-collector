@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Archive public Telegram channel history without a Telegram login.
+"""Collect recent public market posts for an internal summarization model.
 
-The collector follows the public ``t.me/s/<channel>?before=<post_id>`` pages,
-writes one JSONL file per channel, and creates aggregate JSONL/CSV files.
-It does not access private channels or download media files.
+The collector reads recent public Telegram channel pages plus the latest
+오선/FuturesNow YouTube posts. It does not access private channels or download
+media files.
 """
 from __future__ import annotations
 
@@ -24,6 +24,9 @@ import urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Any
+
+from futuresnow import fetch_html as fetch_futuresnow_html
+from futuresnow import parse_posts as parse_futuresnow_posts
 
 
 ROOT = Path(__file__).resolve().parent
@@ -205,6 +208,8 @@ def collect_channel(
     channel_spec: dict[str, str],
     *,
     output_dir: Path,
+    start_utc: dt.datetime,
+    end_utc: dt.datetime,
     max_pages: int,
     delay: float,
     timeout: float,
@@ -242,8 +247,19 @@ def collect_channel(
                     stop_reason = "error"
                 break
 
+            page_times = [
+                dt.datetime.fromisoformat(
+                    message["published_at"].replace("Z", "+00:00")
+                ).astimezone(UTC)
+                for message in page_messages
+            ]
             new_messages = 0
             for message in page_messages:
+                published = dt.datetime.fromisoformat(
+                    message["published_at"].replace("Z", "+00:00")
+                ).astimezone(UTC)
+                if not (start_utc <= published < end_utc):
+                    continue
                 if message["post_id"] not in messages:
                     partial_handle.write(
                         json.dumps(
@@ -259,6 +275,9 @@ def collect_channel(
                 f"[{channel}] page={pages} page_messages={len(page_messages)} "
                 f"new={new_messages} total={len(messages)} oldest={oldest}"
             )
+            if min(page_times) < start_utc:
+                stop_reason = "window_start_reached"
+                break
             if oldest <= 1 or oldest in seen_before or oldest == before:
                 stop_reason = "pagination_stopped"
                 break
@@ -290,14 +309,17 @@ def collect_channel(
         "first_published_at": ordered[0]["published_at"] if ordered else None,
         "last_published_at": ordered[-1]["published_at"] if ordered else None,
         "stop_reason": stop_reason,
-        "complete": stop_reason in {"end_of_history", "pagination_stopped"},
+        "complete": stop_reason
+        in {"end_of_history", "pagination_stopped", "window_start_reached"},
         "error": error,
         "file": destination.relative_to(output_dir).as_posix(),
         "sha256": file_sha256(destination),
     }
 
 
-def build_aggregates(output_dir: Path, summaries: list[dict[str, Any]]) -> int:
+def build_telegram_aggregate(
+    output_dir: Path, summaries: list[dict[str, Any]]
+) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for summary in summaries:
         path = output_dir / summary["file"]
@@ -307,7 +329,7 @@ def build_aggregates(output_dir: Path, summaries: list[dict[str, Any]]) -> int:
                     rows.append(json.loads(line))
     rows.sort(key=lambda row: (row["published_at"], row["channel"], row["post_id"]))
 
-    write_jsonl(output_dir / "all_messages.jsonl", rows)
+    write_jsonl(output_dir / "telegram_messages.jsonl", rows)
     csv_fields = [
         "published_at",
         "published_at_kst",
@@ -320,13 +342,93 @@ def build_aggregates(output_dir: Path, summaries: list[dict[str, Any]]) -> int:
         "views",
         "url",
     ]
-    with (output_dir / "all_messages.csv").open(
+    with (output_dir / "telegram_messages.csv").open(
         "w", encoding="utf-8-sig", newline=""
     ) as handle:
         writer = csv.DictWriter(handle, fieldnames=csv_fields, extrasaction="ignore")
         writer.writeheader()
         writer.writerows(rows)
-    return len(rows)
+    return rows
+
+
+def telegram_market_item(row: dict[str, Any]) -> dict[str, Any]:
+    title = next((line.strip() for line in row["text"].splitlines() if line.strip()), "")
+    return {
+        "source_type": "telegram",
+        "source": row["channel"],
+        "label": row["label"],
+        "item_id": str(row["post_id"]),
+        "published_at": row["published_at"],
+        "published_at_kst": row["published_at_kst"],
+        "published_text": None,
+        "report_date": None,
+        "title": title[:240],
+        "text": row["text"],
+        "url": row["url"],
+        "author": row["author"],
+        "has_media": row["has_media"],
+        "views": row["views"],
+        "content_sha256": row["content_sha256"],
+    }
+
+
+def write_market_outputs(
+    output_dir: Path,
+    *,
+    telegram_rows: list[dict[str, Any]],
+    futuresnow_rows: list[dict[str, Any]],
+    start_utc: dt.datetime,
+    end_utc: dt.datetime,
+) -> list[dict[str, Any]]:
+    write_jsonl(output_dir / "futuresnow_posts.jsonl", futuresnow_rows)
+    items = [telegram_market_item(row) for row in telegram_rows] + futuresnow_rows
+    items.sort(
+        key=lambda row: (
+            row.get("published_at") or row.get("report_date") or "",
+            row["source"],
+            row["item_id"],
+        )
+    )
+    write_jsonl(output_dir / "market_inputs.jsonl", items)
+    payload = {
+        "schema_version": 2,
+        "window_utc": {
+            "start": start_utc.isoformat().replace("+00:00", "Z"),
+            "end": end_utc.isoformat().replace("+00:00", "Z"),
+        },
+        "window_kst": {
+            "start": start_utc.astimezone(KST).isoformat(),
+            "end": end_utc.astimezone(KST).isoformat(),
+        },
+        "telegram_count": len(telegram_rows),
+        "futuresnow_count": len(futuresnow_rows),
+        "items": items,
+    }
+    (output_dir / "market_inputs.json").write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+
+    csv_fields = [
+        "source_type",
+        "source",
+        "label",
+        "item_id",
+        "published_at",
+        "published_at_kst",
+        "published_text",
+        "report_date",
+        "title",
+        "text",
+        "url",
+    ]
+    with (output_dir / "market_inputs.csv").open(
+        "w", encoding="utf-8-sig", newline=""
+    ) as handle:
+        writer = csv.DictWriter(handle, fieldnames=csv_fields, extrasaction="ignore")
+        writer.writeheader()
+        writer.writerows(items)
+    return items
 
 
 def parse_args() -> argparse.Namespace:
@@ -341,9 +443,17 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--max-pages",
         type=int,
-        default=0,
-        help="Maximum pages per channel; 0 follows history until Telegram stops",
+        default=100,
+        help="Safety cap per channel while walking back to the window start",
     )
+    parser.add_argument(
+        "--window-hours",
+        type=float,
+        default=24.0,
+        help="Collect Telegram messages from this many hours before execution",
+    )
+    parser.add_argument("--futuresnow-limit", type=int, default=5)
+    parser.add_argument("--skip-futuresnow", action="store_true")
     parser.add_argument("--workers", type=int, default=4)
     parser.add_argument("--delay", type=float, default=0.6)
     parser.add_argument("--timeout", type=float, default=30.0)
@@ -358,8 +468,14 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> int:
     args = parse_args()
-    if args.max_pages < 0 or args.workers < 1 or args.delay < 0:
-        print("max-pages/delay must be non-negative and workers must be positive", file=sys.stderr)
+    if (
+        args.max_pages < 1
+        or args.window_hours <= 0
+        or args.futuresnow_limit < 1
+        or args.workers < 1
+        or args.delay < 0
+    ):
+        print("invalid page/window/limit/worker/delay setting", file=sys.stderr)
         return 2
 
     try:
@@ -374,6 +490,8 @@ def main() -> int:
         cafile=str(args.ca_bundle) if args.ca_bundle else None
     )
     collected_at = dt.datetime.now(UTC).replace(microsecond=0)
+    start_utc = collected_at - dt.timedelta(hours=args.window_hours)
+    end_utc = collected_at + dt.timedelta(seconds=1)
     summaries: list[dict[str, Any]] = []
 
     with ThreadPoolExecutor(max_workers=min(args.workers, len(channels))) as executor:
@@ -382,6 +500,8 @@ def main() -> int:
                 collect_channel,
                 spec,
                 output_dir=output_dir,
+                start_utc=start_utc,
+                end_utc=end_utc,
                 max_pages=args.max_pages,
                 delay=args.delay,
                 timeout=args.timeout,
@@ -394,26 +514,73 @@ def main() -> int:
             summaries.append(future.result())
 
     summaries.sort(key=lambda row: row["channel"].lower())
-    total_messages = build_aggregates(output_dir, summaries)
+    telegram_rows = build_telegram_aggregate(output_dir, summaries)
+    futuresnow_rows: list[dict[str, Any]] = []
+    futuresnow_error = ""
+    if not args.skip_futuresnow:
+        try:
+            futuresnow_html = fetch_futuresnow_html(
+                ssl_context=ssl_context,
+                user_agent=UA,
+                timeout=args.timeout,
+                retries=args.retries,
+            )
+            futuresnow_rows = parse_futuresnow_posts(
+                futuresnow_html,
+                collected_at=collected_at,
+                limit=args.futuresnow_limit,
+            )
+            if not futuresnow_rows:
+                futuresnow_error = "no matching 미국 증시 요약 posts found"
+        except Exception as exc:
+            futuresnow_error = f"{type(exc).__name__}: {exc}"
+            log(f"[futuresnow] ERROR {futuresnow_error}")
+    items = write_market_outputs(
+        output_dir,
+        telegram_rows=telegram_rows,
+        futuresnow_rows=futuresnow_rows,
+        start_utc=start_utc,
+        end_utc=end_utc,
+    )
     manifest = {
-        "schema_version": 1,
+        "schema_version": 2,
         "collected_at": collected_at.isoformat().replace("+00:00", "Z"),
         "collected_at_kst": collected_at.astimezone(KST).isoformat(),
+        "window_utc": {
+            "start": start_utc.isoformat().replace("+00:00", "Z"),
+            "end": end_utc.isoformat().replace("+00:00", "Z"),
+        },
+        "window_kst": {
+            "start": start_utc.astimezone(KST).isoformat(),
+            "end": end_utc.astimezone(KST).isoformat(),
+        },
         "public_pages_only": True,
         "media_files_downloaded": False,
         "requested_channels": [row["id"] for row in channels],
         "settings": {
             "max_pages_per_channel": args.max_pages,
+            "window_hours": args.window_hours,
             "workers": args.workers,
             "request_delay_seconds": args.delay,
+            "futuresnow_limit": args.futuresnow_limit,
         },
-        "total_messages": total_messages,
+        "telegram_messages": len(telegram_rows),
+        "futuresnow_posts": len(futuresnow_rows),
+        "total_items": len(items),
         "complete_channels": sum(row["complete"] for row in summaries),
         "failed_channels": sum(bool(row["error"]) for row in summaries),
+        "futuresnow_error": futuresnow_error,
         "channels": summaries,
         "files": {
-            "all_messages.jsonl": file_sha256(output_dir / "all_messages.jsonl"),
-            "all_messages.csv": file_sha256(output_dir / "all_messages.csv"),
+            name: file_sha256(output_dir / name)
+            for name in (
+                "market_inputs.json",
+                "market_inputs.jsonl",
+                "market_inputs.csv",
+                "telegram_messages.jsonl",
+                "telegram_messages.csv",
+                "futuresnow_posts.jsonl",
+            )
         },
     }
     (output_dir / "manifest.json").write_text(
@@ -421,10 +588,12 @@ def main() -> int:
         encoding="utf-8",
     )
     log(
-        f"done channels={len(channels)} messages={total_messages} "
-        f"errors={manifest['failed_channels']} output={output_dir}"
+        f"done channels={len(channels)} telegram={len(telegram_rows)} "
+        f"futuresnow={len(futuresnow_rows)} errors={manifest['failed_channels']} "
+        f"output={output_dir}"
     )
-    return 1 if manifest["failed_channels"] == len(channels) else 0
+    all_telegram_failed = manifest["failed_channels"] == len(channels)
+    return 1 if all_telegram_failed and futuresnow_error else 0
 
 
 if __name__ == "__main__":
