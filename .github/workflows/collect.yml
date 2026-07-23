@@ -2,9 +2,7 @@ name: Collect daily market inputs
 
 on:
   schedule:
-    - cron: "55 6 * * *"
-      timezone: "Asia/Seoul"
-    - cron: "55 7 * * *"
+    - cron: "10 8 * * *"
       timezone: "Asia/Seoul"
     - cron: "15 16 * * *"
       timezone: "Asia/Seoul"

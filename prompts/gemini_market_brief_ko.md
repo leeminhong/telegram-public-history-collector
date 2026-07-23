@@ -10,7 +10,7 @@
 
 ## 실행 변수
 
-- `REPORT_TYPE`: `MORNING_0710`, `UPDATE_0810`, `CLOSE_1630` 중 하나
+- `REPORT_TYPE`: `MORNING_0810`, `CLOSE_1630` 중 하나
 - `REPORT_AT_KST`: 보고서 기준시각. ISO 8601 KST 형식
 - `MARKET_INPUTS_JSON`: GitHub에서 받은 `market_inputs.json` 전체 내용
 
@@ -34,8 +34,7 @@
 
 ## 보고 구간
 
-- `MORNING_0710`: `REPORT_AT_KST` 직전 12시간 중 JSON에 포함된 자료
-- `UPDATE_0810`: 당일 07:10 이후부터 `window_kst.end`까지 새로 나온 변화만
+- `MORNING_0810`: 당일 08:10까지 수집된 직전 12시간 자료를 한 번에 사용
 - `CLOSE_1630`: 당일 08:10 이후부터 `window_kst.end`까지 나온 자료
 - 기준구간 밖 Telegram 항목은 사용하지 않는다.
 - 오선 게시물은 해당 보고서에서 다루는 가장 최근 미국 거래일 게시물 1개를
@@ -98,12 +97,12 @@
 
 ## 보고서 유형별 출력
 
-### `MORNING_0710`
+### `MORNING_0810`
 
 다음 양식을 그대로 사용한다.
 
 ```text
-M/D 07:10 Morning Brief
+M/D 08:10 Morning Brief
 자료 기준: <실제 window_kst.start> ~ <실제 window_kst.end>
 
 [한줄 판단]
@@ -139,30 +138,6 @@ M/D 07:10 Morning Brief
 
 [오늘의 변수]
 - 기준시각 이후 예정된 핵심 일정 또는 변수 최대 3개. <근거 링크>
-```
-
-### `UPDATE_0810`
-
-- 07:10 보고 이후 새 사실이나 판단 변화만 쓴다.
-- 바뀌지 않은 섹션은 반복하지 않는다.
-- 변화가 전혀 없으면 아래 두 줄만 출력한다.
-
-```text
-M/D 08:10 Update
-07:10 이후 유의미한 변경사항 없음
-```
-
-변화가 있으면 다음 양식을 사용한다.
-
-```text
-M/D 08:10 Update
-자료 기준: 당일 07:10 ~ <실제 window_kst.end>
-
-[변경 요약]
-- 가장 중요한 변화 한 문장. <근거 링크>
-
-[변경 항목]
-- 원달러/금리/유가/나스닥/경제지표 중 실제로 바뀐 항목만 간결하게 작성.
 ```
 
 ### `CLOSE_1630`

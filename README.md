@@ -19,7 +19,9 @@ Bot Token, YouTube API Key는 필요하지 않습니다.
 각 자동·수동 실행이 성공하면 `latest-data` Release의 파일들이 새 결과로
 교체됩니다. 내부망은 같은 URL을 반복해서 내려받으면 됩니다.
 
-자동 실행 시각은 매일 06:55, 07:55, 16:15(KST)입니다.
+자동 실행 시각은 매일 08:10, 16:15(KST)입니다. 아침에는 07:10 초안과
+08:10 변경보고를 나누지 않고, 08:10까지 수집된 자료로 모닝브리프를 한 번만
+작성합니다.
 
 ## GitHub에서 수동 실행
 
@@ -52,7 +54,7 @@ Bot Token, YouTube API Key는 필요하지 않습니다.
 - `futuresnow_posts.jsonl`: 오선 게시물만 모은 원본
 - `by_channel/<채널>.jsonl`: 채널별 Telegram 자료
 - `manifest.json`: 수집 구간, 채널별 건수, 오선 상태, 오류 및 파일 해시
-- `gemini_market_brief_prompt.md`: 07:10·08:10·16:30 보고서 공용 프롬프트
+- `gemini_market_brief_prompt.md`: 08:10 모닝·16:30 마감 보고서 공용 프롬프트
 
 내부 Gemini는 `market_inputs.json`의 `window_kst`와 각 항목의
 `published_at_kst`를 사용해 보고 구간을 필터링합니다. 오선 게시물은
