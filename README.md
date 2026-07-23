@@ -4,7 +4,7 @@
 게시물과 오선의 미국 증시 요약 YouTube Posts를 모읍니다. Telegram 로그인,
 Bot Token, YouTube API Key는 필요하지 않습니다.
 
-기본 수집 구간은 실행 시각 직전 24시간입니다. 비공개·삭제 게시물이나 공개
+기본 수집 구간은 실행 시각 직전 12시간입니다. 비공개·삭제 게시물이나 공개
 웹페이지에 노출되지 않는 콘텐츠, 사진·영상 파일 자체는 수집하지 않습니다.
 
 ## 최신 결과 바로 받기
@@ -14,6 +14,7 @@ Bot Token, YouTube API Key는 필요하지 않습니다.
 - [Excel용 CSV](https://github.com/leeminhong/telegram-public-history-collector/releases/download/latest-data/market_inputs.csv)
 - [전체 JSONL](https://github.com/leeminhong/telegram-public-history-collector/releases/download/latest-data/market_inputs.jsonl)
 - [수집 결과 manifest](https://github.com/leeminhong/telegram-public-history-collector/releases/download/latest-data/manifest.json)
+- [Gemini 보고서 프롬프트](https://github.com/leeminhong/telegram-public-history-collector/releases/download/latest-data/gemini_market_brief_prompt.md)
 
 각 자동·수동 실행이 성공하면 `latest-data` Release의 파일들이 새 결과로
 교체됩니다. 내부망은 같은 URL을 반복해서 내려받으면 됩니다.
@@ -32,14 +33,14 @@ Bot Token, YouTube API Key는 필요하지 않습니다.
 - `channels`: 쉼표 또는 공백으로 구분한 채널 ID/공개 URL입니다. 비우면
   `channels.json`의 기본 채널을 사용합니다.
 - `window_hours`: 실행 시각부터 몇 시간 전까지 수집할지 정합니다. 기본값은
-  `24`입니다.
+  `12`입니다.
 - `max_pages_per_channel`: 최근 구간을 찾기 위한 안전 한도입니다. 기본
   `100`이면 일일 수집에 충분합니다.
 - `workers`: 동시에 수집할 채널 수입니다.
 - `request_delay_seconds`: 같은 채널의 다음 페이지를 요청하기 전 대기시간입니다.
 
-기본 채널은 NH선물과 국내 증권사 채권·경제·전략 채널 중심입니다. 인포맥스
-(`kwtok`)와 해외 실시간 속보(`FinancialJuice`, `firstsquaw`,
+기본 채널은 NH선물과 국내 증권사 채권·경제·전략 채널 10개입니다. 한기평,
+인포맥스(`kwtok`)와 해외 실시간 속보(`FinancialJuice`, `firstsquaw`,
 `livesquaw`)는 제외했습니다.
 
 ## 결과물
@@ -51,6 +52,7 @@ Bot Token, YouTube API Key는 필요하지 않습니다.
 - `futuresnow_posts.jsonl`: 오선 게시물만 모은 원본
 - `by_channel/<채널>.jsonl`: 채널별 Telegram 자료
 - `manifest.json`: 수집 구간, 채널별 건수, 오선 상태, 오류 및 파일 해시
+- `gemini_market_brief_prompt.md`: 07:10·08:10·16:30 보고서 공용 프롬프트
 
 내부 Gemini는 `market_inputs.json`의 `window_kst`와 각 항목의
 `published_at_kst`를 사용해 보고 구간을 필터링합니다. 오선 게시물은
@@ -65,7 +67,7 @@ Python 3.11 이상에서 외부 패키지 없이 실행됩니다.
 python -m unittest discover -s tests -v
 python collector.py \
   --channels nhfutures \
-  --window-hours 24 \
+  --window-hours 12 \
   --max-pages 10 \
   --workers 1 \
   --output-dir output

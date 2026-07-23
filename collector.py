@@ -449,7 +449,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--window-hours",
         type=float,
-        default=24.0,
+        default=12.0,
         help="Collect Telegram messages from this many hours before execution",
     )
     parser.add_argument("--futuresnow-limit", type=int, default=5)
