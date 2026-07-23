@@ -31,6 +31,11 @@ on:
         options:
           - "MORNING_0810"
           - "CLOSE_1630"
+      as_of_kst:
+        description: "선택: 과거 기준시각(예: 2026-07-23T08:10:00+09:00)"
+        required: false
+        default: ""
+        type: string
       workers:
         description: "동시 수집 채널 수"
         required: true
@@ -75,13 +80,19 @@ jobs:
           INPUT_WINDOW_HOURS: ${{ inputs.window_hours || '12' }}
           INPUT_WORKERS: ${{ inputs.workers || '4' }}
           INPUT_DELAY: ${{ inputs.request_delay_seconds || '0.6' }}
+          INPUT_AS_OF_KST: ${{ inputs.as_of_kst }}
         run: |
+          END_AT_ARGS=()
+          if [[ -n "$INPUT_AS_OF_KST" ]]; then
+            END_AT_ARGS=(--end-at-kst "$INPUT_AS_OF_KST")
+          fi
           python collector.py \
             --channels "$INPUT_CHANNELS" \
             --max-pages "$INPUT_MAX_PAGES" \
             --window-hours "$INPUT_WINDOW_HOURS" \
             --workers "$INPUT_WORKERS" \
             --delay "$INPUT_DELAY" \
+            "${END_AT_ARGS[@]}" \
             --output-dir output
 
       - name: Include Gemini prompt
@@ -166,8 +177,13 @@ jobs:
         run: |
           git pull --rebase origin main
           mkdir -p results/archive
-          cp output/gemini_copy_paste.md results/latest.md
-          cp output/market_inputs.md results/latest_sources.md
+          if [[ "$REPORT_TYPE" == "MORNING_0810" ]]; then
+            cp output/gemini_copy_paste.md results/latest.md
+            cp output/market_inputs.md results/latest_sources.md
+          else
+            cp output/gemini_copy_paste.md results/latest_close.md
+            cp output/market_inputs.md results/latest_close_sources.md
+          fi
           cp output/gemini_copy_paste.md \
             "results/archive/${GITHUB_RUN_ID}-${REPORT_TYPE}.md"
           git config user.name "github-actions[bot]"

@@ -11,6 +11,8 @@ Bot Token, YouTube API Key는 필요하지 않습니다.
 
 - [웹에서 바로 복사할 Gemini 입력](https://github.com/leeminhong/telegram-public-history-collector/blob/main/results/latest.md)
 - [웹에서 읽는 최신 원문자료](https://github.com/leeminhong/telegram-public-history-collector/blob/main/results/latest_sources.md)
+- [마감 Gemini 입력](https://github.com/leeminhong/telegram-public-history-collector/blob/main/results/latest_close.md)
+- [마감 원문자료](https://github.com/leeminhong/telegram-public-history-collector/blob/main/results/latest_close_sources.md)
 - [실행별 결과 보관 폴더](https://github.com/leeminhong/telegram-public-history-collector/tree/main/results/archive)
 - [전체 결과 ZIP](https://github.com/leeminhong/telegram-public-history-collector/releases/download/latest-data/market-inputs.zip)
 - [Gemini용 JSON](https://github.com/leeminhong/telegram-public-history-collector/releases/download/latest-data/market_inputs.json)
@@ -64,6 +66,10 @@ Bot Token, YouTube API Key는 필요하지 않습니다.
 저장소의 `results/` 폴더에도 최신 복사용 파일과 실행별 보관본을 자동으로
 커밋합니다. 따라서 Release 파일을 내려받지 않고 GitHub 화면에서 바로 열어
 복사할 수 있습니다.
+
+`results/latest.md`와 `latest_sources.md`는 항상 마지막 08:10 모닝 실행만
+유지합니다. 16:30 마감 실행은 `latest_close.md` 계열만 갱신하므로 모닝
+최신파일을 덮어쓰지 않습니다.
 
 내부 Gemini는 `market_inputs.json`의 `window_kst`와 각 항목의
 `published_at_kst`를 사용해 보고 구간을 필터링합니다. 오선 게시물은

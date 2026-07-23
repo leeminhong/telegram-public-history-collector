@@ -452,6 +452,10 @@ def parse_args() -> argparse.Namespace:
         default=12.0,
         help="Collect Telegram messages from this many hours before execution",
     )
+    parser.add_argument(
+        "--end-at-kst",
+        help="Optional fixed collection cutoff in ISO 8601 KST format",
+    )
     parser.add_argument("--futuresnow-limit", type=int, default=5)
     parser.add_argument("--skip-futuresnow", action="store_true")
     parser.add_argument("--workers", type=int, default=4)
@@ -490,8 +494,19 @@ def main() -> int:
         cafile=str(args.ca_bundle) if args.ca_bundle else None
     )
     collected_at = dt.datetime.now(UTC).replace(microsecond=0)
-    start_utc = collected_at - dt.timedelta(hours=args.window_hours)
-    end_utc = collected_at + dt.timedelta(seconds=1)
+    window_end = collected_at
+    if args.end_at_kst:
+        try:
+            parsed_end = dt.datetime.fromisoformat(args.end_at_kst)
+        except ValueError:
+            print("invalid --end-at-kst ISO 8601 value", file=sys.stderr)
+            return 2
+        if parsed_end.tzinfo is None:
+            print("--end-at-kst must include a timezone offset", file=sys.stderr)
+            return 2
+        window_end = parsed_end.astimezone(UTC)
+    start_utc = window_end - dt.timedelta(hours=args.window_hours)
+    end_utc = window_end + dt.timedelta(seconds=1)
     summaries: list[dict[str, Any]] = []
 
     with ThreadPoolExecutor(max_workers=min(args.workers, len(channels))) as executor:
