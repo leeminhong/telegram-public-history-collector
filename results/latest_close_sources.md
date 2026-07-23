@@ -1,33 +1,11 @@
 # 최신 시장 입력자료
 
-- 수집 구간(KST): `2026-07-23T04:04:46+09:00` ~ `2026-07-23T16:04:47+09:00`
-- Telegram: **44건**
+- 수집 구간(KST): `2026-07-23T06:34:22+09:00` ~ `2026-07-23T18:34:23+09:00`
+- Telegram: **40건**
 - 오선: **5건**
-- 합계: **49건**
+- 합계: **45건**
 
 ## KB채권 (`jk_bond`)
-
-### 2026-07-23T06:29:47+09:00
-
-**미국은 이란의 지하 핵시설이 구축된 것으로 추정되는 일명 &#x27;&#x27;곡괭이산&#x27;(Pickaxe Mountain)&#x27; 타격 준비에 들어갔고, 이란은 중동 걸프국가 내 미국 기지에 대한 보복 공격 성과를 내세우며 밀리지 않겠다는 태세다.** · [원문](https://t.me/s/jk_bond/21556)
-
-````text
-미국은 이란의 지하 핵시설이 구축된 것으로 추정되는 일명 &#x27;&#x27;곡괭이산&#x27;(Pickaxe Mountain)&#x27; 타격 준비에 들어갔고, 이란은 중동 걸프국가 내 미국 기지에 대한 보복 공격 성과를 내세우며 밀리지 않겠다는 태세다.
-
-https://naver.me/FVF4qxTc
-````
-
-### 2026-07-23T06:30:25+09:00
-
-**미국과 종전 협상에서 이란 협상단을 이끈 모하마드 바게르 갈리바프 의회 의장은 22일(현지시간) SNS(소셜미디어) X를 통해 &quot;우리가 석유를 팔지 않는 지역에서는 아무도 석유를 팔지 못할 것&quot;이라고 밝혔다.** · [원문](https://t.me/s/jk_bond/21557)
-
-````text
-미국과 종전 협상에서 이란 협상단을 이끈 모하마드 바게르 갈리바프 의회 의장은 22일(현지시간) SNS(소셜미디어) X를 통해 &quot;우리가 석유를 팔지 않는 지역에서는 아무도 석유를 팔지 못할 것&quot;이라고 밝혔다.
-
-그는 &quot;이 전쟁의 방정식은 명확하다. 모두가 하거나 아무도 못 하는, 전부 아니면 전무&quot;라고 적었다. 또한 &quot;이란의 안보가 보장되지 않으면 어떤 기반시설도 안전하지 못할 것&quot;이라고 했다.
-
-https://naver.me/Gy3FZGvI
-````
 
 ### 2026-07-23T07:51:17+09:00
 
@@ -1294,22 +1272,6 @@ https://www.bloomberg.com/news/articles/2026-07-22/alphabet-posts-cloud-sales-be
 ````
 
 ## 한투기관 (`mk81_koreainvestment`)
-
-### 2026-07-23T05:04:33+09:00
-
-**Live: S&amp;P 500 closes little changed as higher oil prices keep stocks under pressure https://www.cnbc.com/2026/07/21/stock-market-today-live-updates.html?__source=iosappshare%7Ccom.apple.UIKit.activity.CopyToPasteboard** · [원문](https://t.me/s/mk81_koreainvestment/22720)
-
-````text
-Live: S&amp;P 500 closes little changed as higher oil prices keep stocks under pressure https://www.cnbc.com/2026/07/21/stock-market-today-live-updates.html?__source=iosappshare%7Ccom.apple.UIKit.activity.CopyToPasteboard
-````
-
-### 2026-07-23T05:13:03+09:00
-
-**Live: Alphabet earnings are out, here are the numbers: Live updates https://www.cnbc.com/2026/07/22/google-earnings-q2-goog-live-updates.html?__source=iosappshare%7Ccom.apple.UIKit.activity.CopyToPasteboard** · [원문](https://t.me/s/mk81_koreainvestment/22721)
-
-````text
-Live: Alphabet earnings are out, here are the numbers: Live updates https://www.cnbc.com/2026/07/22/google-earnings-q2-goog-live-updates.html?__source=iosappshare%7Ccom.apple.UIKit.activity.CopyToPasteboard
-````
 
 ### 2026-07-23T06:51:48+09:00
 
