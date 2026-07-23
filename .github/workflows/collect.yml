@@ -23,6 +23,14 @@ on:
         required: true
         default: "12"
         type: string
+      report_type:
+        description: "생성할 Gemini 입력의 보고서 유형"
+        required: true
+        default: "MORNING_0810"
+        type: choice
+        options:
+          - "MORNING_0810"
+          - "CLOSE_1630"
       workers:
         description: "동시 수집 채널 수"
         required: true
@@ -80,6 +88,21 @@ jobs:
         if: ${{ success() }}
         run: cp prompts/gemini_market_brief_ko.md output/gemini_market_brief_prompt.md
 
+      - name: Render copy-paste Markdown
+        if: ${{ success() }}
+        env:
+          REPORT_TYPE: >-
+            ${{ inputs.report_type ||
+                (github.event.schedule == '15 16 * * *' && 'CLOSE_1630') ||
+                'MORNING_0810' }}
+        run: |
+          python render_results.py \
+            --input output/market_inputs.json \
+            --prompt prompts/gemini_market_brief_ko.md \
+            --report-type "$REPORT_TYPE" \
+            --copy-output output/gemini_copy_paste.md \
+            --sources-output output/market_inputs.md
+
       - name: Upload archive
         if: ${{ always() }}
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -110,6 +133,8 @@ jobs:
               output/market_inputs.jsonl \
               output/manifest.json \
               output/gemini_market_brief_prompt.md \
+              output/gemini_copy_paste.md \
+              output/market_inputs.md \
               --clobber
             gh release edit latest-data \
               --title "Latest daily market inputs" \
@@ -123,7 +148,32 @@ jobs:
               output/market_inputs.jsonl \
               output/manifest.json \
               output/gemini_market_brief_prompt.md \
+              output/gemini_copy_paste.md \
+              output/market_inputs.md \
               --title "Latest daily market inputs" \
               --notes "$RELEASE_NOTES" \
               --latest
+          fi
+
+      - name: Publish visible results folder
+        if: ${{ success() }}
+        shell: bash
+        env:
+          REPORT_TYPE: >-
+            ${{ inputs.report_type ||
+                (github.event.schedule == '15 16 * * *' && 'CLOSE_1630') ||
+                'MORNING_0810' }}
+        run: |
+          git pull --rebase origin main
+          mkdir -p results/archive
+          cp output/gemini_copy_paste.md results/latest.md
+          cp output/market_inputs.md results/latest_sources.md
+          cp output/gemini_copy_paste.md \
+            "results/archive/${GITHUB_RUN_ID}-${REPORT_TYPE}.md"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add results
+          if ! git diff --cached --quiet; then
+            git commit -m "Update collected market results (${GITHUB_RUN_ID})"
+            git push origin HEAD:main
           fi

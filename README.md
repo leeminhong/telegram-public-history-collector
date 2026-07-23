@@ -9,6 +9,9 @@ Bot Token, YouTube API Key는 필요하지 않습니다.
 
 ## 최신 결과 바로 받기
 
+- [웹에서 바로 복사할 Gemini 입력](https://github.com/leeminhong/telegram-public-history-collector/blob/main/results/latest.md)
+- [웹에서 읽는 최신 원문자료](https://github.com/leeminhong/telegram-public-history-collector/blob/main/results/latest_sources.md)
+- [실행별 결과 보관 폴더](https://github.com/leeminhong/telegram-public-history-collector/tree/main/results/archive)
 - [전체 결과 ZIP](https://github.com/leeminhong/telegram-public-history-collector/releases/download/latest-data/market-inputs.zip)
 - [Gemini용 JSON](https://github.com/leeminhong/telegram-public-history-collector/releases/download/latest-data/market_inputs.json)
 - [Excel용 CSV](https://github.com/leeminhong/telegram-public-history-collector/releases/download/latest-data/market_inputs.csv)
@@ -55,6 +58,12 @@ Bot Token, YouTube API Key는 필요하지 않습니다.
 - `by_channel/<채널>.jsonl`: 채널별 Telegram 자료
 - `manifest.json`: 수집 구간, 채널별 건수, 오선 상태, 오류 및 파일 해시
 - `gemini_market_brief_prompt.md`: 08:10 모닝·16:30 마감 보고서 공용 프롬프트
+- `gemini_copy_paste.md`: 프롬프트와 JSON을 합친 한 번에 복사용 파일
+- `market_inputs.md`: 수집자료를 채널별로 펼친 사람이 읽는 파일
+
+저장소의 `results/` 폴더에도 최신 복사용 파일과 실행별 보관본을 자동으로
+커밋합니다. 따라서 Release 파일을 내려받지 않고 GitHub 화면에서 바로 열어
+복사할 수 있습니다.
 
 내부 Gemini는 `market_inputs.json`의 `window_kst`와 각 항목의
 `published_at_kst`를 사용해 보고 구간을 필터링합니다. 오선 게시물은

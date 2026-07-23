@@ -31,6 +31,8 @@
    `published_text`를 사용해 가장 최근 미국장 요약인지 판단한다.
 6. 자료 묶음의 실제 마감시각은 `window_kst.end`다. `REPORT_AT_KST`보다
    이르다면 마감시각 이후의 상황을 추정하지 않는다.
+7. 모든 보고 구간의 끝은 `REPORT_AT_KST`와 `window_kst.end` 중 이른
+   시각이다. 보고 기준시각 이후 게시물은 JSON에 있어도 사용하지 않는다.
 
 ## 보고 구간
 
