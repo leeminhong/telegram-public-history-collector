@@ -37,6 +37,11 @@ Telegram 공개 웹페이지에 노출되지 않는 콘텐츠는 수집할 수 �
 GitHub의 `Run workflow` 버튼은 `workflow_dispatch` 워크플로가 기본 브랜치에
 있어야 나타나며, 실행자에게 저장소 쓰기 권한이 필요합니다.
 
+기본 `channels.json`은 NH선물과 국내 증권사 채권·경제·전략 채널 중심입니다.
+대량 속보 채널인 인포맥스(`kwtok`)와 해외 실시간 속보
+(`FinancialJuice`, `firstsquaw`, `livesquaw`)는 기본 수집에서 제외했습니다.
+필요할 때만 `channels` 입력란에 채널 ID를 직접 넣어 별도로 수집할 수 있습니다.
+
 ## 결과물
 
 - `manifest.json`: 채널별 페이지·메시지 수, 수집 완결 여부, 오류, 파일 해시

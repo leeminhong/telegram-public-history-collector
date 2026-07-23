@@ -2,17 +2,12 @@
   {"id": "nhfutures", "label": "NH"},
   {"id": "korearatings", "label": "한기평"},
   {"id": "jk_bond", "label": "KB채권"},
-  {"id": "FinancialJuice", "label": "FJ"},
   {"id": "deandatbond", "label": "하나채권"},
   {"id": "miraebond", "label": "미래채권"},
   {"id": "yieldnspread", "label": "한화채권"},
   {"id": "lim_econ", "label": "한화경제"},
   {"id": "kisthemacro", "label": "한투경제"},
   {"id": "mk81_koreainvestment", "label": "한투기관"},
-  {"id": "firstsquaw", "label": "FQ"},
-  {"id": "livesquaw", "label": "LQ"},
   {"id": "hedgecat0301", "label": "키움경제"},
-  {"id": "daishinstrategy", "label": "대신경제"},
-  {"id": "kwtok", "label": "인포맥스"}
+  {"id": "daishinstrategy", "label": "대신경제"}
 ]
-
