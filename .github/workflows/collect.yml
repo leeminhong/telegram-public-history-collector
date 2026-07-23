@@ -1,0 +1,75 @@
+name: Collect Telegram public history
+
+on:
+  workflow_dispatch:
+    inputs:
+      channels:
+        description: "채널 ID/URL (쉼표 구분, 비우면 channels.json 전체)"
+        required: false
+        default: ""
+        type: string
+      max_pages_per_channel:
+        description: "채널별 최대 페이지 (0은 공개 이력 끝까지)"
+        required: true
+        default: "0"
+        type: string
+      workers:
+        description: "동시 수집 채널 수"
+        required: true
+        default: "4"
+        type: choice
+        options:
+          - "2"
+          - "4"
+          - "6"
+      request_delay_seconds:
+        description: "채널별 페이지 요청 간격(초)"
+        required: true
+        default: "0.6"
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: telegram-public-history
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Collect public messages
+        timeout-minutes: 300
+        shell: bash
+        env:
+          INPUT_CHANNELS: ${{ inputs.channels }}
+          INPUT_MAX_PAGES: ${{ inputs.max_pages_per_channel }}
+          INPUT_WORKERS: ${{ inputs.workers }}
+          INPUT_DELAY: ${{ inputs.request_delay_seconds }}
+        run: |
+          python collector.py \
+            --channels "$INPUT_CHANNELS" \
+            --max-pages "$INPUT_MAX_PAGES" \
+            --workers "$INPUT_WORKERS" \
+            --delay "$INPUT_DELAY" \
+            --output-dir output
+
+      - name: Upload archive
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: telegram-public-history-${{ github.run_id }}
+          path: output/
+          if-no-files-found: warn
+          retention-days: 14
+
