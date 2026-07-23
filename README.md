@@ -6,6 +6,16 @@ Telegram 공개 웹페이지에 노출되지 않는 콘텐츠는 수집할 수 �
 사진·영상 파일은 내려받지 않고 해당 메시지 링크와 미디어 존재 여부만
 기록합니다.
 
+## 최신 결과 바로 받기
+
+- [전체 결과 ZIP](https://github.com/leeminhong/telegram-public-history-collector/releases/download/latest-data/telegram-public-history.zip)
+- [Excel용 CSV](https://github.com/leeminhong/telegram-public-history-collector/releases/download/latest-data/all_messages.csv)
+- [전체 JSONL](https://github.com/leeminhong/telegram-public-history-collector/releases/download/latest-data/all_messages.jsonl)
+- [수집 결과 manifest](https://github.com/leeminhong/telegram-public-history-collector/releases/download/latest-data/manifest.json)
+
+각 수동 실행이 성공하면 `latest-data` Release의 파일들이 새 결과로
+교체됩니다. 따라서 위 링크는 그대로 두고 반복해서 사용할 수 있습니다.
+
 ## GitHub에서 버튼으로 실행
 
 1. 이 디렉터리의 내용만 새 개인 **공개** GitHub 저장소에 올립니다.
