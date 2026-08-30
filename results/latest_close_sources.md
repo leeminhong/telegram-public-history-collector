@@ -1,70 +1,60 @@
 # 최신 시장 입력자료
 
-- 수집 구간(KST): `2026-08-29T10:08:32+09:00` ~ `2026-08-29T22:08:33+09:00`
-- Telegram: **4건**
+- 수집 구간(KST): `2026-08-30T09:50:04+09:00` ~ `2026-08-30T21:50:05+09:00`
+- Telegram: **8건**
 - 오선: **5건**
-- 합계: **9건**
+- 합계: **13건**
 
 ## KB채권 (`jk_bond`)
 
-### 2026-08-29T15:21:57+09:00
+### 2026-08-30T09:58:24+09:00
 
-**워시의 잭슨홀 연설** · [원문](https://t.me/s/jk_bond/22163)
+**30일 금융감독원 전자공시시스템에 제출된 반기·사업보고서에 따르면 상반기 삼성전자, SK하이닉스의 법인세 납부액은 각각 3조9876억원, 7조2207억원으로 합계 11조2083억원이었다.** · [원문](https://t.me/s/jk_bond/22167)
 
 ````text
-워시의 잭슨홀 연설
+30일 금융감독원 전자공시시스템에 제출된 반기·사업보고서에 따르면 상반기 삼성전자, SK하이닉스의 법인세 납부액은 각각 3조9876억원, 7조2207억원으로 합계 11조2083억원이었다.
 
-On the employment side of the Fed&#x27;s dual mandate, our country is doing well. Labor markets are quite stable. The jobless rate, at 4.1 percent, remains low by historical standards and has not changed much for a couple of years. Unemployment claims, on a four-week average—an empirically robust real-time indicator—are near their lowest level in decades.
-
-In my view, the relatively low turnover in today&#x27;s labor market is partly a result of the significant rematching between employers and employees that happened at scale in the post-pandemic environment.
-
-When labor supply is barely growing, monthly job gains are naturally going to run low. There are always areas of concern in the labor market—for example, among recent graduates. In general, though, people who want to work, by and large, are holding or finding jobs. They may well be concerned about possible future labor disruptions, but as of now, I believe the labor markets are consistent with full employment.
-
-But on the price-stability side of our mandate, the numbers are more concerning. The Fed&#x27;s preferred measure of inflation, the 12-month change in the PCE price index, stands at 3.7 percent, while the six-month change is 4.1 percent. The comparable measures from the consumer price index (CPI) are also elevated, as are the core measures of both PCE and CPI inflation. None of these measures are perfect, but they all tell a similar story: Inflation is running above our 2 percent target. So the Fed&#x27;s predominant focus right now should be on prices.
-
-The job for policymakers is to capture underlying trend inflation—that is, the generalized change in prices in the economy, unaffected by idiosyncratic factors. We want to gauge whether underlying inflation is rising, falling, or stuck in place. We also want to understand not just the direction of travel, but also the speed. Each of these broad inflation measures has fallen significantly from their 2022 heights. But progress over the past two years has been modest.
-
-연준의 양대 책무 중 고용 측면에서 우리 국가는 잘해내고 있습니다. 노동 시장은 매우 안정적입니다. 4.1%의 실업률은 역사적 기준에 비해 낮은 수준이며 수년간 큰 변화가 없었습니다. 4주 평균 신규 실업수당 청구 건수—실증적으로 견고한 실시간 지표—는 수십 년 만에 가장 낮은 수준에 가깝습니다.
-
-저의 견해로는, 오늘날 노동 시장의 비교적 낮은 이직률은 팬데믹 이후 환경에서 구직자와 구인자 간에 대규모로 이루어진 재매칭의 결과이기도 합니다.
-
-노동 공급이 거의 증가하지 않을 때, 월간 고용 증가 폭이 낮게 유지되는 것은 자연스러운 현상입니다. 최근 졸업생 등 노동 시장 내에 우려되는 영역은 항상 존재합니다. 그러나 전반적으로 일하기를 원하는 사람들은 대체로 일자리를 유지하거나 찾고 있습니다. 미래의 노동 차질 가능성에 대해 걱정할 수는 있지만, 현재로서는 노동 시장이 완전 고용과 부합한다고 믿습니다
-
-그러나 우리 책무의 다른 한 축인 물가 안정 측면에서는 수치가 더 우려스럽습니다. 연준이 선호하는 물가 지표인 12개월 PCE 물가지수 상승률은 3.7%를 기록하고 있으며, 6개월 상승률은 4.1%입니다. 소비자물가지수(CPI)의 비교 지표들과 PCE 및 CPI의 근원(Core) 지표들 역시 높게 나타나고 있습니다. 이 지표들 중 완벽한 것은 없지만, 모두 비슷한 이야기를 전합니다. 인플레이션이 우리의 2% 목표치를 상회하고 있다는 것입니다. 따라서 지금 연준이 가장 우위에 두어야 할 초점은 &#x27;물가&#x27;에 맞춰져야 합니다.
-
-정책 입안자들의 임무는 기저의 근본적인 인플레이션 추세를 포착하는 것입니다. 즉, 특이요인에 영향을 받지 않는 경제 전반의 generalized된 물가 변화를 의미합니다. 우리는 기저 인플레이션이 오르고 있는지, 내리고 있는지, 아니면 고착되어 있는지 가늠하고자 합니다. 또한 이동 방향뿐만 아니라 그 속도도 이해하고자 합니다. 광범위한 물가 지표들 각각은 2022년 고점에서 상당히 하락했습니다. 하지만 지난 2년 동안의 진전은 미미했습니다.
-
-https://www.federalreserve.gov/newsevents/speech/warsh20260828a.htm
+https://naver.me/GcAaYI6f
 ````
 
-### 2026-08-29T15:58:36+09:00
+### 2026-08-30T10:30:07+09:00
 
-**연방기금금리 선물시장에 반영된 금리 확률** · [원문](https://t.me/s/jk_bond/22164)
+**https://naver.me/FFq8s23L** · [원문](https://t.me/s/jk_bond/22168)
 
 ````text
-연방기금금리 선물시장에 반영된 금리 확률
+https://naver.me/FFq8s23L
 ````
 
-### 2026-08-29T15:59:03+09:00
+### 2026-08-30T10:34:17+09:00
 
-**스콧 베선트 미국 재무장관이 지난달 미국의 이례적인 엔화 매수 개입과 관련해 엔화 시장의 급격한 불안이 미국 금리를 끌어올릴 수 있다는 점을 개입 배경으로 제시했습니다.** · [원문](https://t.me/s/jk_bond/22165)
+**https://naver.me/FFq8s23L** · [원문](https://t.me/s/jk_bond/22169)
 
 ````text
-스콧 베선트 미국 재무장관이 지난달 미국의 이례적인 엔화 매수 개입과 관련해 엔화 시장의 급격한 불안이 미국 금리를 끌어올릴 수 있다는 점을 개입 배경으로 제시했습니다.
-
-현지시간 28일 블룸버그통신 등은 베선트 장관이 엘리자베스 워런 민주당 상원의원에게 보낸 지난 27일자 서한에서 &quot;일본은 미 국채의 주요 보유국&quot;이라며 이같이 밝혔다고 보도했습니다
-
-https://naver.me/GdTk85qp
+https://naver.me/FFq8s23L
 ````
 
-### 2026-08-29T16:08:34+09:00
+### 2026-08-30T13:51:05+09:00
 
-**도널드 트럼프 미국 대통령이 28일(현지시각) 베네수엘라와 “세계 역사상 최대 규모의 석유 거래”를 체결했다고 발표했다. 트럼프는 소셜미디어 트루스소셜에 “미국이 베네수엘라의 확인된 석유 매장량 650억 배럴 이상에 대한 과반 통제권을 확보했다”며 “이 거래로 미국 석유 매장량이 2배 이상 늘어나고 휘발윳값이 크게 낮아질 것”이라고 주장했다** · [원문](https://t.me/s/jk_bond/22166)
+**https://naver.me/FAAYvelH** · [원문](https://t.me/s/jk_bond/22170)
 
 ````text
-도널드 트럼프 미국 대통령이 28일(현지시각) 베네수엘라와 “세계 역사상 최대 규모의 석유 거래”를 체결했다고 발표했다. 트럼프는 소셜미디어 트루스소셜에 “미국이 베네수엘라의 확인된 석유 매장량 650억 배럴 이상에 대한 과반 통제권을 확보했다”며 “이 거래로 미국 석유 매장량이 2배 이상 늘어나고 휘발윳값이 크게 낮아질 것”이라고 주장했다
+https://naver.me/FAAYvelH
+````
 
-https://naver.me/FVFpuQwq
+### 2026-08-30T13:53:12+09:00
+
+**https://naver.me/5WUTs6jf** · [원문](https://t.me/s/jk_bond/22171)
+
+````text
+https://naver.me/5WUTs6jf
+````
+
+### 2026-08-30T18:49:22+09:00
+
+**https://naver.me/FTdhchAe** · [원문](https://t.me/s/jk_bond/22172)
+
+````text
+https://naver.me/FTdhchAe
 ````
 
 ## 오선 (`futuresnow`)
@@ -641,4 +631,44 @@ WTI 83.54 → 83.44 ▼ (전일 같은시간대비)
 
 -------------------------------------------------------------------------------------------------------------------------
 금일 장 전 시황 자료 ☞ https://saveticker.com/app/report
+````
+
+## 한투기관 (`mk81_koreainvestment`)
+
+### 2026-08-30T11:11:00+09:00
+
+**뉴욕증시는 케빈 워시 연준 의장의 잭슨홀 연설이 예상보다 매파적으로 해석되며 하락했습니다. 다우는 0.02% 내린 53,559.99, S&amp;P500은 0.25% 하락한 7,711.76, 나스닥은 0.52% 밀린 26,402.42로 마감했고 러셀2000은 1.39% 하락했습니다. 장중에는 장기금리 하락에 S&amp;P500이 0.52%까지 올랐지만, 9월 금리 인상 베팅이 강화되며 금리가 재차 상승하자 상승분을 반납했습니다. 공포·탐욕지** · [원문](https://t.me/s/mk81_koreainvestment/22996)
+
+````text
+뉴욕증시는 케빈 워시 연준 의장의 잭슨홀 연설이 예상보다 매파적으로 해석되며 하락했습니다. 다우는 0.02% 내린 53,559.99, S&amp;P500은 0.25% 하락한 7,711.76, 나스닥은 0.52% 밀린 26,402.42로 마감했고 러셀2000은 1.39% 하락했습니다. 장중에는 장기금리 하락에 S&amp;P500이 0.52%까지 올랐지만, 9월 금리 인상 베팅이 강화되며 금리가 재차 상승하자 상승분을 반납했습니다. 공포·탐욕지수는 54로 중립권, VIX는 14.43을 기록했습니다.
+
+업종별로 경기소비재 +1.69%, 커뮤니케이션 +1.56%, 에너지 +0.59%가 강했던 반면 기술 -1.29%, 유틸리티 -1.14%, 산업재 -0.96%가 부진했습니다. 엔비디아가 4.58% 하락했고 마벨 -10.28%, 램리서치 -5.24% 등 반도체에 매도가 집중된 반면 아마존 +3.97%, 알파벳 +1.74%, 마이크로소프트 +1.68%, 애플 +1.63%로 플랫폼 대형주는 견조했습니다. 워크데이는 5.76% 상승한 반면 페이팔은 12.71% 급락하며 개별 종목 변동성도 컸습니다.
+
+워시는 여름 물가 둔화만으로 기조적 인플레이션 개선을 확신하기 어렵고 금융여건도 충분히 제약적이지 않다고 평가했습니다. 이에 9월 금리 인상 확률은 전일 35% 수준에서 57.5%로 뛰었고 한때 60%를 웃돌았습니다. 2년물 금리는 12bp 오른 4.352%, 10년물은 5bp 상승한 4.722%, 30년물은 1.8bp 오른 5.208%를 기록했습니다. 단기물 금리가 장기물보다 크게 오르면서 10년물과 2년물 스프레드는 44bp에서 37bp로 축소되는 베어 플래트닝이 나타났습니다.
+
+달러도 연준의 매파적 재평가를 반영해 강세를 보였습니다. 달러인덱스는 0.51% 상승한 99.655로 6월 중순 이후 최대 상승률을 기록했고, 달러·엔은 160.082엔까지 올라 지난달 미·일 공조 개입 이후 처음으로 160엔을 넘어섰습니다. 유로·달러는 1.15859달러로 하락하며 1.16달러선을 내줬습니다.
+
+국제유가는 상승 반전 하루 만에 다시 하락했습니다. WTI는 0.16% 내린 배럴당 83.40달러, 브렌트유는 0.43% 하락한 89.31달러로 마감했습니다. 이란 측이 호르무즈 해협 재개방과 관련해 외교적 해결 가능성을 열어둔 가운데, 워시 의장의 매파적 발언 이후 달러가 급등한 점도 원유 가격에 하방 압력으로 작용했습니다.
+````
+
+## 한화채권 (`yieldnspread`)
+
+### 2026-08-30T12:24:56+09:00
+
+**■ 한국은행 &#x27;수요주도 물가압력이 근원물가에 미치는 영향&#x27;** · [원문](https://t.me/s/yieldnspread/6506)
+
+````text
+■ 한국은행 &#x27;수요주도 물가압력이 근원물가에 미치는 영향&#x27;
+
+- 수요주도 고(高)근원물가기는 GDP갭률이 플러스(+)인 가운데 근원물가 상승률이 2개 분기 이상 2.5%를 상회하는 시기로 정의. 2000년 이후 수요주도 고근원물가기는 총 4차례로, 2002년 1~4분기, 2007년 2분기~2008년 3분기, 2011년 2~4분기, 2022년 1분기~2024년 1분기
+
+- 근원물가 상승률이 2.5% 안팎을 넘어서면 전체 품목과 개인서비스 품목의 가격 동조성이 급격히 상승하며, 통계적으로 추정된 임계수준은 2.5~2.8%. 공식 근원물가 상승률과 품목별 상승률을 가중평균해 산출한 근원물가 간 상관계수는 0.84로, 품목별 가격 동조성 분석 결과의 강건성이 높은 것으로 평가
+
+- 장기간 경기민감품목으로 분류된 품목은 외식 9개, 외식 제외 개인서비스 34개, 내구재 18개, 섬유제품 5개, 기타 공업제품 28개이며, 경기민감품목은 전체 근원물가의 약 60~90%를 차지
+
+- 고수요압력 국면에서 GDP갭률이 1%p 확대되면 경기민감물가 상승률은 0.42%p 높아지는 것으로 추정되며, 전체 기간 평균 효과인 0.11%p의 약 3.8배. 전체 근원물가를 직접 분석하면 고수요압력 국면에서 GDP갭률 1%p 확대 시 근원물가 상승률이 0.14%p 높아졌으며, 간접·직접 추정치를 종합한 상승효과는 약 0.1~0.4%p. 동일한 1표준편차 수요충격 발생 시 고수요압력 국면에서는 근원물가가 6분기 후 약 0.6%p 상승한 반면, 저수요압력 국면에서는 3분기 후 약 0.2%p 상승하는 데 그친 것으로 분석
+
+- 고수요압력 국면에서 GDI 기반 수요충격은 근원물가를 최대 약 0.7%p 높여 GDP 기반 수요충격의 최대 효과인 0.6%p보다 약 1.2배 크게 나타났으며, 수출가격 상승 충격의 영향이 수입가격 하락 충격보다 큰 것으로 추정
+
+- 향후 GDP갭 확대에 따른 근원물가 상승압력 0.1~0.4%p에 교역조건 개선과 GDI 증가에 따른 0.05~0.2%p가 추가될 수 있으며, GDI 증가는 통상 1~2분기의 시차를 두고 소비로 파급돼 근원물가의 2%대 중후반 상승세를 상당 기간 지속시킬 가능성
 ````
